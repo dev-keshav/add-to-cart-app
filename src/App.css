@@ -1,6 +1,33 @@
 .App {
   text-align: center;
 }
+.outer_div {
+  padding-top: 60px;
+  color: #5393dc;
+}
+.addtocart_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.remove-btn {
+  display: flex;
+  cursor: pointer;
+  float: right;
+}
+.products_details {
+  color: white;
+}
+.details {
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 30px;
+}
+.details_header {
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 50px;
+}
 
 .App-logo {
   height: 40vmin;
