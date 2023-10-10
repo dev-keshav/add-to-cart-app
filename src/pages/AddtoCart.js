@@ -4,13 +4,11 @@ import { CardActions, Divider } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const AddtoCart = () => {
-  const { cartItems, removeFromCart, numberOfItems } = useCart();
-  // console.log(cartItems.length)
+  const { cartItems, removeFromCart } = useCart();
 
   return (
     <>
       <h1 className="outer_div">Add to Cart</h1>
-      <h2>Total items: {numberOfItems}</h2>
       <CardActions className="details_header addtocart_div">
         <p className="products_details">Product Name</p>
         <p className="products_details">Category</p>

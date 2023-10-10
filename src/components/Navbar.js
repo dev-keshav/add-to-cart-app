@@ -14,7 +14,6 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
 import { useCart } from '../context/CartProvider';
 
-// const {numberOfItems} = useCart();
 
 const pages = ['products', 'contact', 'blog'];
 
@@ -85,6 +84,8 @@ export default function Navbar() {
   const menuId = 'primary-search-account-menu';
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
+
+  const {numberOfItems} = useCart();
   
 
   return (
@@ -127,7 +128,7 @@ export default function Navbar() {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton href='/addtocart' size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={9} color="error">
+              <Badge badgeContent={numberOfItems} color="error">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
