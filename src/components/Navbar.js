@@ -12,6 +12,9 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
+import { useCart } from '../context/CartProvider';
+
+// const {numberOfItems} = useCart();
 
 const pages = ['products', 'contact', 'blog'];
 
@@ -124,7 +127,7 @@ export default function Navbar() {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton href='/addtocart' size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={1} color="error">
+              <Badge badgeContent={9} color="error">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>

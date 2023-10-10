@@ -4,12 +4,13 @@ import { CardActions, Divider } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const AddtoCart = () => {
-  const { cartItems, removeFromCart } = useCart();
-  // console.log(cartItems);
+  const { cartItems, removeFromCart, numberOfItems } = useCart();
+  // console.log(cartItems.length)
 
   return (
     <>
       <h1 className="outer_div">Add to Cart</h1>
+      <h2>Total items: {numberOfItems}</h2>
       <CardActions className="details_header addtocart_div">
         <p className="products_details">Product Name</p>
         <p className="products_details">Category</p>
@@ -21,6 +22,7 @@ const AddtoCart = () => {
         <ul>
           {Array.isArray(cartItems) && cartItems.length > 0 ? (
             cartItems.map((item, index) => (
+              
               <li key={index}>
                 <CardActions className="details">
                   <p className="products_details">{item.title}</p>
