@@ -10,16 +10,9 @@ import Grid from "@mui/material/Grid";
 import { useCart } from "../context/CartProvider";
 
 export default function SingleProduct() {
-  // const [cartItems, setCartItems] = React.useState([]);
-
-  // const addtocart = (product) => {
-  //   const updatedcart = [...cartItems, product];
-  //   setCartItems(updatedcart);
-
-  //   console.log(updatedcart);
-  // };
 
   const { addToCart } = useCart();
+  
 
   return (
     <>

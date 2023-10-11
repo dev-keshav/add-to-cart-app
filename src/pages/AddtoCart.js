@@ -1,7 +1,34 @@
 import React from "react";
 import { useCart } from "../context/CartProvider";
-import { CardActions, Divider } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
 
 const AddtoCart = () => {
   const { cartItems, removeFromCart } = useCart();
@@ -9,40 +36,51 @@ const AddtoCart = () => {
   return (
     <>
       <h1 className="outer_div">Add to Cart</h1>
-      <CardActions className="details_header addtocart_div">
-        <p className="products_details">Product Name</p>
-        <p className="products_details">Category</p>
-        <p className="products_details">Rating</p>
-        <p className="products_details">Prices</p>
-      </CardActions>
-      <Divider color='white' />
       <div className="addtocart_div">
-        <ul>
-          {Array.isArray(cartItems) && cartItems.length > 0 ? (
-            cartItems.map((item, index) => (
+      {Array.isArray(cartItems) && cartItems.length > 0 ? (
+        <TableContainer sx={{ width: 700 }} component={Paper}>
+          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Product Name</StyledTableCell>
+                <StyledTableCell align="right">Category</StyledTableCell>
+                <StyledTableCell align="right">Rating</StyledTableCell>
+                <StyledTableCell align="right">Prices</StyledTableCell>
+                <StyledTableCell align="right">Remove</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
               
-              <li key={index}>
-                <CardActions className="details">
-                  <p className="products_details">{item.title}</p>
-                  <p className="products_details">{item.category}</p>
-                  <p className="products_details">{item.rating.rate}/5.0</p>
-                  <p className="products_details">Price: ${item.price}</p>
-                  <DeleteForeverIcon
-                    className="remove-btn"
-                    size="small"
-                    onClick={() => removeFromCart(item.id)}
-                    color="error"
-                    variant="outlined"
-                  >
-                    Hello
-                  </DeleteForeverIcon>
-                </CardActions>
-              </li>
-            ))
-          ) : (
-            <p>Your cart is empty.</p>
-          )}
-        </ul>
+                {cartItems.map((item) => (
+                  <StyledTableRow key={item.id}>
+                    <StyledTableCell component="th" scope="row">
+                      {item.title}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {item.category}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {item.rating.rate}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">{item.price}</StyledTableCell>
+                    <StyledTableCell align="right">
+                      <DeleteForeverIcon
+                        className="remove-btn"
+                        size="small"
+                        onClick={() => removeFromCart(item.id)}
+                        color="error"
+                        variant="outlined"
+                      >
+                      </DeleteForeverIcon>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        ) : (
+          <p>Your cart is empty</p>
+        )}
       </div>
     </>
   );
