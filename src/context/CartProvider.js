@@ -46,10 +46,11 @@ export const CartProvider = ({ children }) => {
 
   // Calculate total price to all the added products 
   const totalCartPrice = cartItems.reduce((total, item) => total + item.price, 0);
+  const totalPrice = totalCartPrice.toFixed(2);
  
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, numberOfItems, totalCartPrice }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, numberOfItems, totalPrice }}>
       {children}
     </CartContext.Provider>
   );

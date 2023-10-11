@@ -33,7 +33,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const AddtoCart = () => {
-  const { cartItems, removeFromCart, totalCartPrice } = useCart();
+  const { cartItems, removeFromCart, totalPrice } = useCart();
   // console.log(removeFromCart)
 
   return (
@@ -70,7 +70,7 @@ const AddtoCart = () => {
                         />
                       </StyledTableCell>
                       <StyledTableCell sx={{ color: '#8080ff'}} align="right">
-                        {item.price}
+                      ₹{item.price}
                       </StyledTableCell>
                       <StyledTableCell align="right">
                         <DeleteForeverIcon
@@ -89,7 +89,7 @@ const AddtoCart = () => {
                     <StyledTableCell>Total </StyledTableCell>
                     <StyledTableCell align="center"></StyledTableCell>
                     <StyledTableCell align="center"></StyledTableCell>
-                    <StyledTableCell align="right">{totalCartPrice}</StyledTableCell>
+                    <StyledTableCell align="right">₹{totalPrice}</StyledTableCell>
                     <StyledTableCell align="right"></StyledTableCell>
                   </TableRow>
                 </TableHead>
