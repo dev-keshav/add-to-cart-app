@@ -5,22 +5,13 @@ import Products from "./pages/Products";
 import Contact from "./pages/Contact";
 import { Home } from "./pages/Home";
 import AddtoCart from "./pages/AddtoCart";
-import { CartProvider } from "./context/CartProvider";
 
-const TopLevelCompo = () => {
-  return (
-    <>
-      <Navbar />
-    </>
-  );
-};
 
 function App() {
   return (
     <div className="App">
-      <CartProvider>
         <BrowserRouter>
-          <TopLevelCompo />
+          <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<Products />} />
@@ -28,7 +19,6 @@ function App() {
             <Route path="/addtocart" element={<AddtoCart />} />
           </Routes>
         </BrowserRouter>
-      </CartProvider>
     </div>
   );
 }

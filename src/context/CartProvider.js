@@ -29,16 +29,14 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(getLocalItems());
   const numberOfItems = cartItems.length;
 
+
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems))
   }, [cartItems])
 
   const addToCart = (cart) => {
     const newItem = { ...cart}
-    // setCartItems([...cartItems, newItem]);
-    setCartItems((prevCart) => [...prevCart, newItem])
-    // console.log("Hello", newItem) 
-    // console.log(cartItems.length) 
+    setCartItems((prevCart) => [...prevCart, newItem]) 
   };
 
   const removeFromCart = (productId) => {
@@ -46,8 +44,12 @@ export const CartProvider = ({ children }) => {
     setCartItems(updatedCart);
   };
 
+  // Calculate total price to all the added products 
+  const totalCartPrice = cartItems.reduce((total, item) => total + item.price, 0);
+ 
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, numberOfItems }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, numberOfItems, totalCartPrice }}>
       {children}
     </CartContext.Provider>
   );

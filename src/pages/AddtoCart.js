@@ -9,6 +9,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import Rating from "@mui/material/Rating";
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -31,53 +33,69 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const AddtoCart = () => {
-  const { cartItems, removeFromCart } = useCart();
+  const { cartItems, removeFromCart, totalCartPrice } = useCart();
+  // console.log(removeFromCart)
 
   return (
     <>
       <h1 className="outer_div">Add to Cart</h1>
       <div className="addtocart_div">
-      {Array.isArray(cartItems) && cartItems.length > 0 ? (
-        <TableContainer sx={{ width: 700 }} component={Paper}>
-          <Table sx={{ minWidth: 700 }} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>Product Name</StyledTableCell>
-                <StyledTableCell align="right">Category</StyledTableCell>
-                <StyledTableCell align="right">Rating</StyledTableCell>
-                <StyledTableCell align="right">Prices</StyledTableCell>
-                <StyledTableCell align="right">Remove</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              
-                {cartItems.map((item) => (
-                  <StyledTableRow key={item.id}>
-                    <StyledTableCell component="th" scope="row">
-                      {item.title}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">
-                      {item.category}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">
-                      {item.rating.rate}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">{item.price}</StyledTableCell>
-                    <StyledTableCell align="right">
-                      <DeleteForeverIcon
-                        className="remove-btn"
-                        size="small"
-                        onClick={() => removeFromCart(item.id)}
-                        color="error"
-                        variant="outlined"
-                      >
-                      </DeleteForeverIcon>
-                    </StyledTableCell>
-                  </StyledTableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        {Array.isArray(cartItems) && cartItems.length > 0 ? (
+          <Paper>
+            <TableContainer sx={{ minWidth: 300, maxWidth: 900, minHeight: 100, maxHeight: 500, backgroundColor: 'black', color: 'white' }} component={Paper}>
+              <Table stickyHeader aria-label="sticky table" sx={{ minWidth: 700 }} >
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>Product Name</StyledTableCell>
+                    <StyledTableCell align="center">Category</StyledTableCell>
+                    <StyledTableCell align="center">Rating</StyledTableCell>
+                    <StyledTableCell align="right">Prices</StyledTableCell>
+                    <StyledTableCell align="right">Remove</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody sx={{ overflow: "scroll" }}>
+                  {cartItems.map((item) => (
+                    <StyledTableRow key={item.id}>
+                      <StyledTableCell sx={{ color: '#9933ff'}} component="th" scope="row">
+                        {item.title}
+                      </StyledTableCell>
+                      <StyledTableCell sx={{ color: '#8080ff'}} align="center">
+                        {item.category}
+                      </StyledTableCell>
+                      <StyledTableCell sx={{ backgroundColor: '#1976D2'}} align="center">
+                        <Rating
+                          name="read-only"
+                          value={item.rating.rate}
+                          readOnly
+                        />
+                      </StyledTableCell>
+                      <StyledTableCell sx={{ color: '#8080ff'}} align="right">
+                        {item.price}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        <DeleteForeverIcon
+                          className="remove-btn"
+                          size="small"
+                          onClick={() => removeFromCart(item.id)}
+                          color="error"
+                          variant="outlined"
+                        ></DeleteForeverIcon>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                </TableBody>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>Total </StyledTableCell>
+                    <StyledTableCell align="center"></StyledTableCell>
+                    <StyledTableCell align="center"></StyledTableCell>
+                    <StyledTableCell align="right">{totalCartPrice}</StyledTableCell>
+                    <StyledTableCell align="right"></StyledTableCell>
+                  </TableRow>
+                </TableHead>
+              </Table>
+            </TableContainer>
+          </Paper>
         ) : (
           <p>Your cart is empty</p>
         )}
