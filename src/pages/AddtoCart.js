@@ -33,8 +33,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const AddtoCart = () => {
-  const { cartItems, removeFromCart, totalPrice } = useCart();
-  // console.log(removeFromCart)
+  const { cartItems, removeFromCart, totalPrice, taxAmount, invoiceTotal } = useCart();
+
+  console.log(invoiceTotal)
+  
 
   return (
     <>
@@ -42,8 +44,8 @@ const AddtoCart = () => {
       <div className="addtocart_div">
         {Array.isArray(cartItems) && cartItems.length > 0 ? (
           <Paper>
-            <TableContainer sx={{ minWidth: 300, maxWidth: 900, minHeight: 100, maxHeight: 500, backgroundColor: 'black', color: 'white' }} component={Paper}>
-              <Table stickyHeader aria-label="sticky table" sx={{ minWidth: 700 }} >
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 700 }} aria-label="spanning table">
                 <TableHead>
                   <TableRow>
                     <StyledTableCell>Product Name</StyledTableCell>
@@ -53,24 +55,31 @@ const AddtoCart = () => {
                     <StyledTableCell align="right">Remove</StyledTableCell>
                   </TableRow>
                 </TableHead>
-                <TableBody sx={{ overflow: "scroll" }}>
+                <TableBody>
                   {cartItems.map((item) => (
                     <StyledTableRow key={item.id}>
-                      <StyledTableCell sx={{ color: '#9933ff'}} component="th" scope="row">
+                      <StyledTableCell
+                        sx={{ color: "#9933ff" }}
+                        component="th"
+                        scope="row"
+                      >
                         {item.title}
                       </StyledTableCell>
-                      <StyledTableCell sx={{ color: '#8080ff'}} align="center">
+                      <StyledTableCell sx={{ color: "#8080ff" }} align="center">
                         {item.category}
                       </StyledTableCell>
-                      <StyledTableCell sx={{ backgroundColor: '#1976D2'}} align="center">
+                      <StyledTableCell
+                        // sx={{ backgroundColor: "#1976D2" }}
+                        align="center"
+                      >
                         <Rating
                           name="read-only"
                           value={item.rating.rate}
                           readOnly
                         />
                       </StyledTableCell>
-                      <StyledTableCell sx={{ color: '#8080ff'}} align="right">
-                      ₹{item.price}
+                      <StyledTableCell sx={{ color: "#8080ff" }} align="right">
+                        ₹{item.price}
                       </StyledTableCell>
                       <StyledTableCell align="right">
                         <DeleteForeverIcon
@@ -84,15 +93,22 @@ const AddtoCart = () => {
                     </StyledTableRow>
                   ))}
                 </TableBody>
-                <TableHead>
-                  <TableRow>
-                    <StyledTableCell>Total </StyledTableCell>
-                    <StyledTableCell align="center"></StyledTableCell>
-                    <StyledTableCell align="center"></StyledTableCell>
-                    <StyledTableCell align="right">₹{totalPrice}</StyledTableCell>
-                    <StyledTableCell align="right"></StyledTableCell>
-                  </TableRow>
-                </TableHead>
+                <TableRow>
+                  <TableCell rowSpan={3} />
+                  <TableCell colSpan={2}>Subtotal</TableCell>
+                  <TableCell align="right">
+                    {totalPrice}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Tax</TableCell>
+                  <TableCell align="right">7 %</TableCell>
+                  <TableCell align="right">{taxAmount}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell colSpan={2}>Total</TableCell>
+                  <TableCell align="right">{invoiceTotal}</TableCell>
+                </TableRow>
               </Table>
             </TableContainer>
           </Paper>
