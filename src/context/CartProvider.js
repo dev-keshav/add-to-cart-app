@@ -20,7 +20,6 @@ const getLocalItems = () => {
 
 
 // --------------Provider-----------
-
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(getLocalItems());
   const numberOfItems = cartItems.length;
@@ -30,8 +29,10 @@ export const CartProvider = ({ children }) => {
   }, [cartItems]);
 
   const addToCart = (cart) => {
-    const newItem = { ...cart };
-    setCartItems((prevCart) => [...prevCart, newItem]);
+    const itemExits = cartItems.some((item) => item.id === cart.id);
+    if(!itemExits){
+      setCartItems([...cartItems, cart]);
+    }
   };
 
   const removeFromCart = (productId) => {
